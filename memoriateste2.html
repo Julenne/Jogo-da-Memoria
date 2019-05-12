@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <script type="text/javascript" src="jquery-1.11.3.min.js"></script>
+    <head>   
+        <meta charset="utf-8">
+        <title>Memoria Arnold</title>
+        <link rel="stylesheet" href="boniteza.css">
+
+    </head>
+    <body>
+            
+        <div class="constCartas">
+            <div class="cartaUnica" data-card="a1.png">
+                <img src="a1.png" class="front">
+                <img src="hey_arnold.png" class="back">
+            </div>
+            <div class="cartaUnica" data-card="a1.png">
+                <img src="a1.png" class="front">
+                <img src="hey_arnold.png" class="back">
+            </div>
+        
+            <div class="cartaUnica" data-card="a2.png">
+                <img src="a2.png" class="front">
+                <img src="hey_arnold.png" class="back">
+            </div>
+            <div class="cartaUnica" data-card="a2.png">
+                <img src="a2.png" class="front">
+                <img src="hey_arnold.png" class="back">
+            </div>
+
+            <div class="cartaUnica" data-card="a3.png">
+                <img src="a3.png" class="front">
+                <img src="hey_arnold.png" class="back">
+            </div>
+            <div class="cartaUnica" data-card="a3.png">
+                <img src="a3.png" class="front">
+                <img src="hey_arnold.png" class="back">
+            </div>
+
+            <div class="cartaUnica" data-card="a4.png">
+                <img src="a4.png" class="front">
+                <img src="hey_arnold.png" class="back">
+            </div>
+            <div class="cartaUnica" data-card="a4.png">
+                <img src="a4.png" class="front">
+                <img src="hey_arnold.png" class="back">
+            </div>
+
+            <div class="cartaUnica" data-card="a5.png">
+                <img src="a5.png" class="front">
+                <img src="hey_arnold.png" class="back">
+            </div>
+            <div class="cartaUnica" data-card="a5.png">
+                <img src="a5.png" class="front">
+                <img src="hey_arnold.png" class="back">
+            </div>
+
+            <div class="cartaUnica" data-card="a6.png">
+                <img src="a6.png" class="front">
+                <img src="hey_arnold.png" class="back">
+            </div>
+            <div class="cartaUnica" data-card="a6.png">
+                <img src="a6.png" class="front">
+                <img src="hey_arnold.png" class="back">
+            </div>
+        </div>
+        <script type="text/javascript" data-card="a1.png">
+            const cards = document.querySelectorAll(".cartaUnica");
+            let firstCard; 
+            let secondCard;
+            let lockCard  = false;
+            function flipCard(){
+                if(lockCard){
+                    return false;
+                }
+                this.classList.add("flip");
+                if(!firstCard)
+                {
+                    firstCard = this;
+                    return false;
+                }
+                secondCard = this;
+                comparar();
+            }
+            function comparar()
+            {
+                let compara = firstCard.dataset.card == secondCard.dataset.card;
+                if(!compara){
+                    fechaFlip();
+                }
+                else{
+                    resetCards(compara);
+                }
+            }
+            function fechaFlip(){
+                lockCard = true;
+                setTimeout(() => {
+                    firstCard.classList.remove("flip");
+                    secondCard.classList.remove("flip");
+
+                    resetCards();
+                    lockCard = false;
+                }, 600);
+                
+            }
+            function resetCards(compara =  false) {
+
+                if (compara) {
+                    firstCard.removeEventListener("click", flipCard);
+                    secondCard.removeEventListener("click", flipCard);
+                }
+                [firstCard, secondCard, lockCards] = [null, null, false];
+            }
+            (function aleatorio(){
+                cards.forEach(card =>{
+                    let rand = Math.floor(Math.random()*12);
+                    card.style.order = rand;
+                });
+            })();
+
+
+            
+            cards.forEach(card => card.addEventListener("click",flipCard));
+        </script>
+    
+    </body>
+</html>
